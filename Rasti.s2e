@@ -1,0 +1,274 @@
+{	"extensionName": "Rasti Block",
+	"sort":1,
+	"extensionPort": 0,
+	"firmware":"1.1.103",
+ 	"javascriptURL":"js/rasti.js",
+        
+	"blockSpecs": [
+		["h","Rasti Inicio","runArduino"],
+
+                ["H","SENSORES"],
+		
+		["B", "Sensor %m.name pin dig %n","getDigital","humedad de suelo","12" ,
+		{"encode":"{d1}","setup":"pinMode({1},INPUT);\n","inc":"","def":"","work":"digitalRead({1})","loop":""}],
+
+["B", "Sensor %m.name pin dig %n","getDigital","gases","12" ,
+		{"encode":"{d1}","setup":"pinMode({1},INPUT);\n","inc":"","def":"","work":"digitalRead({1})","loop":""}],
+
+		["B", "Sensor %m.name pin dig %n","getDigital","sigue líneas","12" ,
+		{"encode":"{d1}","setup":"pinMode({1},INPUT);\n","inc":"","def":"","work":"digitalRead({1})","loop":""}],
+
+["B", "Sensor %m.name pin dig %n","getDigital","sigue líneas 2","11" ,
+		{"encode":"{d1}","setup":"pinMode({1},INPUT);\n","inc":"","def":"","work":"digitalRead({1})","loop":""}],
+
+["B", "Sensor %m.name pin dig %n","getDigital","encoder","12" ,
+		{"encode":"{d1}","setup":"pinMode({1},INPUT);\n","inc":"","def":"","work":"digitalRead({1})","loop":""}],
+
+
+["B", "Sensor %m.name pin dig %n","getDigital","barrera infraroja","12" ,
+		{"encode":"{d1}","setup":"pinMode({1},INPUT);\n","inc":"","def":"","work":"digitalRead({1})","loop":""}],
+
+["B", "Sensor %m.name pin dig %n","getDigital","luz","15" ,
+		{"encode":"{d1}","setup":"pinMode({1},INPUT);\n","inc":"","def":"","work":"digitalRead({1})","loop":""}],
+
+["B", "Sensor %m.name pin dig %n","getDigital","pulsador","9" ,
+		{"encode":"{d1}","setup":"pinMode({1},INPUT);\n","inc":"","def":"","work":"digitalRead({1})","loop":""}],
+
+["B", "Sensor %m.name pin dig %n","getDigital","sonido","12" ,
+		{"encode":"{d1}","setup":"pinMode({1},INPUT);\n","inc":"","def":"","work":"digitalRead({1})","loop":""}],
+
+
+		["R", "read ultrasonic sensor trig pin %n echo pin %n","getUltrasonicArduino",9,15,
+		{"encode":"{d0}","setup":"","inc":"","def":"--separator--float getDistance(int trig,int echo){\npinMode(trig,OUTPUT);\ndigitalWrite(trig,LOW);\ndelayMicroseconds(2);\ndigitalWrite(trig,HIGH);\ndelayMicroseconds(10);\ndigitalWrite(trig,LOW);\npinMode(echo, INPUT);\nreturn pulseIn(echo,HIGH,30000)/58.0;\n}\n","work":"getDistance({0},{1})","loop":""}],
+
+
+[ //DHT sensor library
+			"w",
+			"Sensor DHT hum y temp %n , Pin %d.digital1 , Version %d.DHT ",
+			"DHT sensor begin",
+			"1",
+			"12",
+			"11",
+			{
+				"setup": "",
+				"inc": "#include \"DHT.h\"\n",
+				"def": "DHT dht_{0}({1},{2});\n",
+				"work": "",
+				"loop": ""
+			}
+		],
+		[
+			"r",
+			"Sensor DHT hum y temp  %n , Temperatura",
+			"DHT sensor get Temperature",
+			"1",
+			{
+				"setup": "",
+				"inc": "",
+				"def": "",
+				"work": "dht_{0}.readTemperature()",
+				"loop": ""
+			}
+		],
+		[
+			"r",
+			"Sensor DHT hum y temp %n , Humedad",
+			"DHT sensor get Humidity",
+			"1",
+			{
+				"setup": "",
+				"inc": "",
+				"def": "",
+				"work": "dht_{0}.readHumidity()",
+				"loop": ""
+			}
+		],
+
+["h","LEDS Y BUZZER"],
+
+["w", "Pin %n %m.name8 %d.digital" ,"runDigital", "13", "buzzer","LOW",
+                {"encode":"{d0}{d1}","setup":"pinMode({0},OUTPUT);\n","inc":"","def":"","work":"digitalWrite({0},{2});\n","loop":""}],
+
+["w", "Pin %n %m.name7 %d.digital" ,"runDigital", "11", "Led verde","LOW",
+                {"encode":"{d0}{d1}","setup":"pinMode({0},OUTPUT);\n","inc":"","def":"","work":"digitalWrite({0},{2});\n","loop":""}],
+
+["w", "Pin %n %m.name6 %d.digital" ,"runDigital", "17", "Led rojo","LOW",
+                {"encode":"{d0}{d1}","setup":"pinMode({0},OUTPUT);\n","inc":"","def":"","work":"digitalWrite({0},{2});\n","loop":""}],
+
+
+		
+
+["h","MOTORES Y SERVO"],
+		
+
+		["w", "Fijar velocidad de motor %m.name2 %m.name3   velocidad %d.pwmvalue","runPwm", "Motor CC1 adelante","5", 0,
+		{"encode":"{d1}{d0}","setup":"pinMode({1},OUTPUT);\n","inc":"","def":"","work":"analogWrite({1},{2});\n","loop":""}],
+
+
+["w", "Fijar velocidad de motor %m.name2 %m.name3   velocidad %d.pwmvalue","runPwm", "Motor CC2 adelante","7", 0,
+		{"encode":"{d1}{d0}","setup":"pinMode({1},OUTPUT);\n","inc":"","def":"","work":"analogWrite({1},{2});\n","loop":""}],
+
+
+["w", "Fijar velocidad de motor %m.name2 %m.name3   velocidad %d.pwmvalue","runPwm", "Motor CC1 atrás","4", 0,
+		{"encode":"{d1}{d0}","setup":"pinMode({1},OUTPUT);\n","inc":"","def":"","work":"analogWrite({1},{2});\n","loop":""}],
+		
+
+["w", "Fijar velocidad de motor %m.name2 %m.name3   velocidad %d.pwmvalue","runPwm", "Motor CC2 atrás","6", 0,
+		{"encode":"{d1}{d0}","setup":"pinMode({1},OUTPUT);\n","inc":"","def":"","work":"analogWrite({1},{2});\n","loop":""}],
+		
+
+		["w", " Servo  , pin %n  angulo %d.servovalue %m.name4","runServoArduino", "10", 0, "derecha",
+		{"encode":"{d0}{d1}","setup":"servo_{0}.attach({0}); // init pin\n","inc":"#include <Servo.h>\n","def":"Servo servo_{0};\n","work":"servo_{0}.write({1}); // write to servo\n","loop":""}],
+
+		["w", " Servo  , pin %n  angulo %d.servovalue %m.name4","runServoArduino", "10", 90, "centrar",
+		{"encode":"{d0}{d1}","setup":"servo_{0}.attach({0}); // init pin\n","inc":"#include <Servo.h>\n","def":"Servo servo_{0};\n","work":"servo_{0}.write({1}); // write to servo\n","loop":""}],
+		
+
+
+		["w", " Servo  , pin %n  angulo %d.servovalue %m.name4","runServoArduino", "10", 180, "izquierda",
+		{"encode":"{d0}{d1}","setup":"servo_{0}.attach({0}); // init pin\n","inc":"#include <Servo.h>\n","def":"Servo servo_{0};\n","work":"servo_{0}.write({1}); // write to servo\n","loop":""}],
+
+
+["h","PANTALLA"],
+
+["w", " Módulo oled %m.name5 ","Pantalla","", "",
+		{"encode":"{d1}","setup":"","inc":"#include <Adafruit_GFX.h>\n#include <Adafruit_SH1106.h>\n#include <SPI.h>\n#define OLED_RESET LED_BUILTIN\nAdafruit_SH1106 display(OLED_RESET);\n#if (SH1106_LCDHEIGHT != 64)\n#error();\n#endif","def":"","work":"display.begin(SH1106_SWITCHCAPVCC);\ndisplay.clearDisplay();\ndisplay.setTextSize(2);\ndisplay.setTextColor(WHITE);\ndisplay.setCursor(2,2);\n","loop":""}],
+
+
+["w", "Escribir en la pantalla %s", "serialWrite", "hola oki",
+		{"setup":"Serial.begin(9600);\n","inc":"","def":"","work":"display.println({0});\ndisplay.display();\ndisplay.setTextSize(2);\npinMode(13,OUTPUT);\ndigitalWrite(13,0);\n","loop":""}],
+
+["h","CONTROL IR"],
+
+
+["w", "IRremoto pin ( %n )",   	
+		"IRremote_js01",         		
+		"8",                        	
+		{
+			"setup":" irrecv.enableIRIn();\n",     					       
+			"inc":"#include \"IRremoteNEW.h\"\n",                           
+			"def":"--separator--IRrecv irrecv({0});\n--separator--decode_results results;\n",      
+			"work":"",
+			"loop":""
+		}],
+
+["B", "Resultado Booleano ",
+		"IRremote_js02",
+		{
+			"setup":"",
+			"inc":"",
+			"def":"",
+			"work":" irrecv.decode(&results)",
+			"loop":""
+		}],
+
+["r", "Resultados",
+		"IRremote_js03",
+		{
+			"setup":"",
+			"inc":"",
+			"def":"",
+			"work":" results.value",
+			"loop":""
+		}],
+["w", "Resume IR recibido",
+		"IRremote_js04",
+		{
+			"setup":"",
+			"inc":"",
+			"def":"",
+			"work":" irrecv.resume();\n",
+			"loop":""
+		}],
+["w", " IR Envío de data %n bits %n",
+		"IRremote_js06",
+		"4291117295","32",
+		{
+			"setup":"",
+			"inc":"",
+			"def":"--separator--IRsend irsend;\n",
+			"work":" irsend.sendNEC({0}, {1});\n delay(200);\n irrecv.enableIRIn();\n delay(200);\n",	
+			"loop":""
+		}],
+
+
+
+
+["h","OTROS"],
+
+		
+		
+		
+		
+		["R", "serial available bytes", "serialAvailable",
+		{"setup":"Serial.begin(115200);\n","inc":"","def":"","work":"Serial.available()","loop":""}],
+		
+		["R", "serial read byte", "serialRead",
+		{"setup":"Serial.begin(115200);\n","inc":"","def":"","work":"Serial.read()","loop":""}],
+
+
+
+       ["R", "read analog pin (A)%n","getAnalog","0",
+		{"encode":"{d0}","setup":"pinMode(A0+{0},INPUT);\n","inc":"","def":"","work":"analogRead(A0+{0})","loop":""}],
+		
+		    
+
+		
+		["R", "timer","getTimer", "0",
+		{"encode":"{n0}","setup":"","inc":"","def":"double currentTime = 0;\ndouble lastTime = 0;\n--separator--double getLastTime(){\n\treturn currentTime = millis()/1000.0 - lastTime;\n}\n","work":"getLastTime()","loop":""}],
+		
+		["w", "reset timer","resetTimer", "0",
+		{"encode":"{n0}","setup":"","inc":"","def":"double currentTime = 0;\ndouble lastTime = 0;\n","work":"lastTime = millis()/1000.0;\n","loop":""}]
+		
+	],
+	"menus": {
+		"beats":["500","250","125","1000","2000","0"],
+		"servovalue":["0","45","90","135","180"],
+		"pwmvalue":["0","50","100","150","255"],
+         "name":["humedad de suelo","luz","sonido","gases","sigue líneas","sigue líneas 2","encoder","barrera infraroja","pulsador"],
+
+"name1":["Led rojo","Led verde","buzzer"],
+		"digital":["HIGH","LOW"],
+                 "digital1":["12","11"],
+"name2":["Motor CC1 adelante","Motor CC1 atrás","Motor CC2 adelante","Motor CC2 atrás"],
+
+      "name3":["4","5","6","7"],       
+
+"name4":["centrar","izquierda","derecha"],  
+
+"name5":["Pantalla"], 
+
+"name6":["Led rojo"], 
+
+"name7":["Led verde"], 
+
+"name8":["Buzzer"], 
+
+
+
+		"notes":["C2","D2","E2","F2","G2","A2","B2","C3","D3","E3","F3","G3","A3","B3","C4","D4","E4","F4","G4","A4","B4","C5","D5","E5","F5","G5","A5","B5","C6","D6","E6","F6","G6","A6","B6","C7","D7","E7","F7","G7","A7","B7","C8","D8"],
+		"beats":["Half","Quarter","Eighth","Whole","Double","Zero"]
+	},
+	"values":{
+		"run":2,
+		"get":1,
+		"digital":30,
+		"analog":31,
+		"pwm":32,
+		"servo_pin":33,
+		"tone":34,
+		"timer":50,
+		"HIGH":1,"LOW":0,
+		"B0":31,"C1":33,"D1":37,"E1":41,"F1":44,"G1":49,"A1":55,"B1":62,
+			"C2":65,"D2":73,"E2":82,"F2":87,"G2":98,"A2":110,"B2":123,
+			"C3":131,"D3":147,"E3":165,"F3":175,"G3":196,"A3":220,"B3":247,
+			"C4":262,"D4":294,"E4":330,"F4":349,"G4":392,"A4":440,"B4":494,
+			"C5":523,"D5":587,"E5":659,"F5":698,"G5":784,"A5":880,"B5":988,
+			"C6":1047,"D6":1175,"E6":1319,"F6":1397,"G6":1568,"A6":1760,"B6":1976,
+			"C7":2093,"D7":2349,"E7":2637,"F7":2794,"G7":3136,"A7":3520,"B7":3951,
+			"C8":4186,"D8":4699,
+		"Half":500,"Quarter":250,"Eighth":125,"Whole":1000,"Double":2000,"Zero":0
+	},
+	"translators":{
+	}
+}
