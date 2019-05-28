@@ -1,4 +1,8 @@
 {	"extensionName": "Rasti Block",
+	"description": "Modulo para programar robots Rasti",
+	"version": "1.0",
+	"author": "Daniel Dieser(daletoniris@gmail.com)",
+	"homepage": "rasti.com.ar",
 	"sort":1,
 	"extensionPort": 0,
 	"firmware":"1.1.103",
@@ -15,10 +19,10 @@
 ["B", "Sensor %m.name pin dig %n","getDigital","gases","12" ,
 		{"encode":"{d1}","setup":"pinMode({1},INPUT);\n","inc":"","def":"","work":"digitalRead({1})","loop":""}],
 
-		["B", "Sensor %m.name pin dig %n","getDigital","sigue líneas","12" ,
+		["B", "Sensor %m.name pin dig %n","getDigital","sigue lÃ­neas","12" ,
 		{"encode":"{d1}","setup":"pinMode({1},INPUT);\n","inc":"","def":"","work":"digitalRead({1})","loop":""}],
 
-["B", "Sensor %m.name pin dig %n","getDigital","sigue líneas 2","11" ,
+["B", "Sensor %m.name pin dig %n","getDigital","sigue lÃ­neas 2","11" ,
 		{"encode":"{d1}","setup":"pinMode({1},INPUT);\n","inc":"","def":"","work":"digitalRead({1})","loop":""}],
 
 ["B", "Sensor %m.name pin dig %n","getDigital","encoder","12" ,
@@ -109,11 +113,11 @@
 		{"encode":"{d1}{d0}","setup":"pinMode({1},OUTPUT);\n","inc":"","def":"","work":"analogWrite({1},{2});\n","loop":""}],
 
 
-["w", "Fijar velocidad de motor %m.name2 %m.name3   velocidad %d.pwmvalue","runPwm", "Motor CC1 atrás","4", 0,
+["w", "Fijar velocidad de motor %m.name2 %m.name3   velocidad %d.pwmvalue","runPwm", "Motor CC1 atrÃ¡s","4", 0,
 		{"encode":"{d1}{d0}","setup":"pinMode({1},OUTPUT);\n","inc":"","def":"","work":"analogWrite({1},{2});\n","loop":""}],
 		
 
-["w", "Fijar velocidad de motor %m.name2 %m.name3   velocidad %d.pwmvalue","runPwm", "Motor CC2 atrás","6", 0,
+["w", "Fijar velocidad de motor %m.name2 %m.name3   velocidad %d.pwmvalue","runPwm", "Motor CC2 atrÃ¡s","6", 0,
 		{"encode":"{d1}{d0}","setup":"pinMode({1},OUTPUT);\n","inc":"","def":"","work":"analogWrite({1},{2});\n","loop":""}],
 		
 
@@ -131,7 +135,7 @@
 
 ["h","PANTALLA"],
 
-["w", " Módulo oled %m.name5 ","Pantalla","", "",
+["w", " MÃ³dulo oled %m.name5 ","Pantalla","", "",
 		{"encode":"{d1}","setup":"","inc":"#include <Adafruit_GFX.h>\n#include <Adafruit_SH1106.h>\n#include <SPI.h>\n#define OLED_RESET LED_BUILTIN\nAdafruit_SH1106 display(OLED_RESET);\n#if (SH1106_LCDHEIGHT != 64)\n#error();\n#endif","def":"","work":"display.begin(SH1106_SWITCHCAPVCC);\ndisplay.clearDisplay();\ndisplay.setTextSize(2);\ndisplay.setTextColor(WHITE);\ndisplay.setCursor(2,2);\n","loop":""}],
 
 
@@ -180,7 +184,7 @@
 			"work":" irrecv.resume();\n",
 			"loop":""
 		}],
-["w", " IR Envío de data %n bits %n",
+["w", " IR EnvÃ­o de data %n bits %n",
 		"IRremote_js06",
 		"4291117295","32",
 		{
@@ -225,12 +229,12 @@
 		"beats":["500","250","125","1000","2000","0"],
 		"servovalue":["0","45","90","135","180"],
 		"pwmvalue":["0","50","100","150","255"],
-         "name":["humedad de suelo","luz","sonido","gases","sigue líneas","sigue líneas 2","encoder","barrera infraroja","pulsador"],
+         "name":["humedad de suelo","luz","sonido","gases","sigue lÃ­neas","sigue lÃ­neas 2","encoder","barrera infraroja","pulsador"],
 
 "name1":["Led rojo","Led verde","buzzer"],
 		"digital":["HIGH","LOW"],
                  "digital1":["12","11"],
-"name2":["Motor CC1 adelante","Motor CC1 atrás","Motor CC2 adelante","Motor CC2 atrás"],
+"name2":["Motor CC1 adelante","Motor CC1 atrÃ¡s","Motor CC2 adelante","Motor CC2 atrÃ¡s"],
 
       "name3":["4","5","6","7"],       
 
